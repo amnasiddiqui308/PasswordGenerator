@@ -15,26 +15,39 @@ using namespace std;
 int getLength() {
 	int length = 0;
 
-	cout << "Enter the length of your password: " << endl;
-	cin >> length;
+	do {
+		cout << "Enter the length of your password: " << endl;
+		cin >> length;
+
+		if (length < 4)
+			cout << "Password cannot be smaller than 4 characters. Please enter the length again." << endl;
+
+	} while (length < 4);
+	
 
 	return length;
 }
 
 void getSpecifications(bool& upperCase, bool& lowerCase, bool& number, bool& symbol) {
-	cout << "---Please enter the specifications that you want regarding your password---" << endl;
+	cout << "\n---Please enter the specifications that you want regarding your password---" << endl;
 
-	cout << "Include Uppercase (press 1 to include and 0 to skip)" << endl;
-	cin >> upperCase;
+	do {
+		cout << "\nInclude Uppercase (press 1 to include and 0 to skip)" << endl;
+		cin >> upperCase;
 
-	cout << "Include Lowercase (press 1 to include and 0 to skip)" << endl;
-	cin >> lowerCase;
+		cout << "Include Lowercase (press 1 to include and 0 to skip)" << endl;
+		cin >> lowerCase;
 
-	cout << "Include Numbers (press 1 to include and 0 to skip)" << endl;
-	cin >> number;
+		cout << "Include Numbers (press 1 to include and 0 to skip)" << endl;
+		cin >> number;
 
-	cout << "Include Symbols (press 1 to include and 0 to skip)" << endl;
-	cin >> symbol;
+		cout << "Include Symbols (press 1 to include and 0 to skip)" << endl;
+		cin >> symbol;
+
+		if (!upperCase && !lowerCase && !number && !symbol)
+			cout << "You need to enter atleast one specification. Please enter again." << endl;
+
+	} while (!upperCase && !lowerCase && !number && !symbol);
 }
 
 char UpperCase(bool uc) {
@@ -68,6 +81,18 @@ char Symbol(char symbols[], bool s) {
 	char symbol = rand() % 32;
 
 	return (symbols[symbol] * s); // (*s) checks if user chose symbol or not.
+}
+
+string FisherYatesShuffle(string& password) {
+	int count = password.length();
+
+	for (int i = count - 1; i >= 0; i--) {
+		int randomIndex = rand() % (i + 1);
+
+		swap(password[i], password[randomIndex]);
+	}
+
+	return password;
 }
 
 string generatePassword(int length, bool upperCase, bool lowerCase, bool number, bool symbol, char symbols[]) {
@@ -122,9 +147,11 @@ int main() {
 	int length = 0;
 	bool upperCase = 0, lowerCase = 0, number = 0, symbol = 0;
 	char symbols[32] = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '"', '\'', '<', ',', '>', '.', '?', '/' , '`', '~' };
+	string password = "";
 
 	length = getLength();
 	getSpecifications(upperCase, lowerCase, number, symbol);
+	password = generatePassword(length, upperCase, lowerCase, number, symbol, symbols);
 
-	cout << generatePassword(length, upperCase, lowerCase, number, symbol, symbols) << endl;
+	cout << "\nPassword: " << FisherYatesShuffle(password) << endl;
 }
