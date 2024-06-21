@@ -10,6 +10,7 @@ using namespace std;
 // Specification-02: Include Lowercase
 // Specification-03: Include Numbers
 // Specification-04: Include Symbols
+// 3. Generate a password according to the specifications
 
 int getLength() {
 	int length = 0;
@@ -69,10 +70,11 @@ char symbol(char symbols[]) {
 	return symbols[symbol];
 }
 
-string generatePassword(int length, bool upperCase, bool lowerCase, bool number, bool symbol) {
-	string password = "";
-
-}
+//string generatePassword(int length, bool upperCase, bool lowerCase, bool number, bool symbol) {
+//	string password = "";
+//
+//
+//}
 
 int main() {
 	int length = 0;
@@ -80,4 +82,5 @@ int main() {
 	char symbols[32] = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '"', '\'', '<', ',', '>', '.', '?', '/' , '`', '~' };
 
 	length = getLength();
+	cout << symbols[19];
 }
